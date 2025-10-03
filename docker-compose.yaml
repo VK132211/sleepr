@@ -11,17 +11,29 @@ services:
       - '3000:3000'
     volumes:
       - .:/usr/src/app
-    auth:
-      build:
-        context: .
-        dockerfile: ./apps/auth/DockerFile
-        target: development
-      command: pnpm run start:dev auth
-      env_file:
-        - ./apps/users/.env
-      ports:
-        - '3001:3001'
-      volumes:
-        - .:/usr/src/app
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/DockerFile
+      target: development
+    command: pnpm run start:dev auth
+    env_file:
+      - ./apps/auth/.env
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/usr/src/app
+  payments:
+    build:
+      context: .
+      dockerfile: ./apps/payments/DockerFile
+      target: development
+    command: pnpm run start:dev payments
+    env_file:
+      - ./apps/payments/.env
+    ports:
+      - '3003:3003'
+    volumes:
+      - .:/usr/src/app
   mongo:
     image: mongo
